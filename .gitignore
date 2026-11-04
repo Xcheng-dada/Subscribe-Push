@@ -1,0 +1,4 @@
+# 运行时数据与本地凭证，不进仓库
+data/
+config/server.json
+*.log

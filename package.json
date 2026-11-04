@@ -1,0 +1,13 @@
+{
+  "name": "Subscribe-Push",
+  "version": "1.0.0",
+  "description": "TRSS-Yunzai 订阅推送插件，支持 B站直播 / B站动态 / 微博动态，推送自带卡片配图",
+  "type": "module",
+  "main": "index.js",
+  "deps": [],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Xcheng-dada/Subscribe-Push.git"
+  }
+}

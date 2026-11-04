@@ -1,0 +1,47 @@
+# 订阅推送插件 配置
+#
+# 改完不需要重启，下轮自动生效（每轮都会重读订阅表和配置）。
+
+# ---------- B站动态 ----------
+bilibiliNews:
+  # 增量探测间隔（秒）。DDBOT 原版默认 10s。
+  # 探测本身只下载一个几百字节的小响应，可以设得比较激进。
+  probeInterval: 10
+  # 每轮随机抖动（秒），多实例部署时用来错开请求
+  jitter: 0
+  # 计数长期为 0 时，多久做一次全量列表兜底校准（秒），最低 30
+  reconcileInterval: 60
+  # 内存中去重用的 id_str 数量上限
+  seenLimit: 5000
+  # 失败退避上限（秒）
+  maxBackoff: 900
+
+# ---------- B站直播 ----------
+bilibiliLive:
+  # 【主力】WebSocket 推送，开播 1~2 秒内到达
+  websocket:
+    enabled: true
+    # 心跳间隔（秒），B站要求 30 秒内必须有心跳
+    heartbeatInterval: 30
+    # 同时监听的房间上限。每个房间一条 WS 连接，
+    # 开太多容易被限流，30 个对个人使用足够。
+    maxConnections: 30
+    # 断线重连退避：5s 起翻倍，最长 300s
+    reconnectBase: 5
+    reconnectMax: 300
+
+  # 【兜底】批量状态轮询
+  # WS 正常时它只是保险，可以放很宽；WS 挂了它会承担主力。
+  # 一次请求查完所有主播，与主播数无关。
+  probeInterval: 60
+  # 连续几次「未开播」才认定真的下播，防接口抖动误报
+  offlineConfirmTimes: 2
+  maxBackoff: 900
+
+# ---------- 微博动态 ----------
+weiboNews:
+  # 轮询间隔（秒）。微博接口易风控，不建议低于 60。
+  probeInterval: 120
+  # 每轮每个博主最多推送几条，防刷屏
+  maxPerRound: 3
+  maxBackoff: 900
